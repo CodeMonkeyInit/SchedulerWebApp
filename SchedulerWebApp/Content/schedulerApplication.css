@@ -17,16 +17,23 @@ body {
 .dl-horizontal dt {
     white-space: normal;
 }
-.header {
-    font-size: large;
-    font-weight: bolder;
-}
 
 /* Set width on the form input elements since they're 100% wide by default */
 input,
 select,
 textarea {
     max-width: 280px;
+}
+
+.header {
+    font-size: large;
+    font-weight: bolder;
+    text-align: center;
+}
+
+.tasks-container {
+    font-size: large;
+    text-align: center;
 }
 
 .task-text {
@@ -36,4 +43,10 @@ textarea {
 .alerts-container {
     height: 100px;
     content: " ";
+}
+
+.empty-tasks-list {
+    font-size: 20px;
+    font-weight: bolder;
+    text-align: center;
 }

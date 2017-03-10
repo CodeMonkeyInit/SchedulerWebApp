@@ -22,7 +22,10 @@ namespace SchedulerWebApp
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js",
                       "~/Scripts/bootstrap-editable.js",
-                      "~/Scripts/scheduler-application.js"));
+                      "~/Scripts/SchedulerApplication/alert-handler.js",
+                      "~/Scripts/SchedulerApplication/event-handlers.js",
+                      "~/Scripts/SchedulerApplication/TaskFormSubmitter.js",
+                      "~/Scripts/SchedulerApplication/scheduler-application.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",

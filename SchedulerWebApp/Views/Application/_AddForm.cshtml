@@ -1,0 +1,9 @@
+﻿@using (Html.BeginForm("AddTask", "ApplicationController", FormMethod.Post, new { @class = "new-task-form" }))
+{
+    <div class="form-group">
+        @Html.TextBox("description", null, new { @class = "form-control task-input", placeholder = "Введите новое дело", required = true })
+    </div>
+        <div class="form-group">
+            <input type="submit" value="Добавить дело" class="form-control btn btn-success sumbit-task-button" />
+        </div>
+}

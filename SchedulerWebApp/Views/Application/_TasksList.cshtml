@@ -1,27 +1,33 @@
 ﻿@using System.Collections.Generic;
 @using SchedulerWebApp.Models;
 
-@model List<Task>
+@model IEnumerable<Task>
 @{ 
     int tasksCount = 0;
 }
-
-@foreach (Task task in Model)
+@if (Model.Count() > 0)
 {
-    tasksCount++;
+    foreach (Task task in Model)
+    {
+        tasksCount++;
 
-    <div class="task-container container">
+        <div class="task-container container">
 
-        <div class="col-md-2">@tasksCount</div>
+            <div class="col-md-2">@tasksCount</div>
 
-        <div class="col-md-8">
-            <span id="task-@task.ID" class="task-text">@task.Description</span>
+            <div class="col-md-8">
+                <span id="task-@task.ID" class="task-text">@task.Description</span>
+            </div>
+
+            <div class="col-md-2">
+                <button id="remove-@task.ID" class="remove-button btn btn-danger glyphicon-minus"></button>
+            </div>
+
         </div>
-
-        <div class="col-md-2">
-            <button id="remove-@task.ID" class="remove-button btn btn-danger glyphicon-minus"></button>
-        </div>
-
-    </div>
-    <hr />
+        <hr />
+    }
+}
+else
+{
+    <div class="empty-tasks-list col-md-12">Добавьте новые дела!</div>
 }

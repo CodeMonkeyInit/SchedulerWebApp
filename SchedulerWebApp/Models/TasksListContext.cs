@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
+﻿using System.Data.Entity;
 using System.Linq;
-using System.Web;
 
 namespace SchedulerWebApp.Models
 {
@@ -18,7 +15,7 @@ namespace SchedulerWebApp.Models
 
         public void RemoveTask(int id)
         {
-            Task removingTask = TasksList.Where(task => task.ID == id).FirstOrDefault();
+            Task removingTask = TasksList.FirstOrDefault(task => task.ID == id);
             
             TasksList.Remove(removingTask);
             SaveChanges();
@@ -26,7 +23,7 @@ namespace SchedulerWebApp.Models
 
         public void UpdateTask(int id, string updatedDescription)
         {
-            Task oldTask = TasksList.Where(task => task.ID == id).FirstOrDefault();
+            Task oldTask = TasksList.FirstOrDefault(task => task.ID == id);
             
             oldTask.Description = updatedDescription;
             SaveChanges();

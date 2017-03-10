@@ -1,24 +1,29 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using System.Data.Entity;
-using System.Data.Entity.Migrations;
 using SchedulerWebApp.Models;
-using System.Data.Entity.Validation;
+using System.Net;
 
 namespace SchedulerWebApp.Controllers
 {
     [RoutePrefix("")]
     public class ApplicationController : Controller
     {
+        private IEnumerable<Task> GetTasks()
+        {
+            using (TasksListContext context = new TasksListContext())
+            {
+                return context.TasksList.ToList();
+            }
+        }
+
         [HttpPost]
         [Route("add/")]
-        public bool AddTask(string description)
+        public ActionResult AddTask(string description)
         {
             Task newTask;
-            bool successfull;
+            ActionResult operationResult;
 
             if (ModelState.IsValid && !string.IsNullOrWhiteSpace(description))
             {
@@ -29,27 +34,26 @@ namespace SchedulerWebApp.Controllers
                         newTask = new Task(description);
 
                         context.AddNewTask(newTask);
-                        successfull = true;
+                        operationResult = new HttpStatusCodeResult(HttpStatusCode.OK);
                     }
                 }
                 catch (Exception)
                 {
-                    successfull = false;
+                    operationResult = new HttpStatusCodeResult(HttpStatusCode.InternalServerError);
                 }
             }
             else
             {
-                successfull = false;
+                operationResult = new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-
-            return successfull;
+            return operationResult;
         }
 
         [HttpPost]
         [Route("remove/")]
-        public bool RemoveTask(int id)
+        public ActionResult RemoveTask(int id)
         {
-            bool isSuccessfull;
+            ActionResult operationResult;
 
             if (ModelState.IsValid)
             {
@@ -58,27 +62,27 @@ namespace SchedulerWebApp.Controllers
                     using (TasksListContext context = new TasksListContext())
                     {
                         context.RemoveTask(id);
-                        isSuccessfull = true;
+                        operationResult = new HttpStatusCodeResult(HttpStatusCode.OK);
                     }
                 }
                 catch (Exception)
                 {
-                    isSuccessfull = false;
+                    operationResult = new HttpStatusCodeResult(HttpStatusCode.InternalServerError);
                 }
             }
             else
             {
-                isSuccessfull = false;
+                operationResult = new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            return isSuccessfull;
+            return operationResult;
         }
 
         [HttpPost]
         [Route("update/")]
-        public bool UpdateTask(int id, string updatedDescription)
+        public ActionResult UpdateTask(int id, string updatedDescription)
         {
-            bool isSuccessfull;
+            ActionResult operationResult;
 
             if (ModelState.IsValid && !string.IsNullOrWhiteSpace(updatedDescription))
             {
@@ -87,42 +91,52 @@ namespace SchedulerWebApp.Controllers
                     using (TasksListContext context = new TasksListContext())
                     {
                         context.UpdateTask(id, updatedDescription);
-                        isSuccessfull = true;
+                        operationResult = new HttpStatusCodeResult(HttpStatusCode.OK);
                     }
                 }
                 catch (Exception)
                 {
-                    isSuccessfull = false;
+                    operationResult = new HttpStatusCodeResult(HttpStatusCode.InternalServerError);
                 }
             }
             else
             {
-                isSuccessfull = false;
+                operationResult = new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            return isSuccessfull;
+            return operationResult;
         }
-
-        [HttpPost]
+        
         [Route("view/")]
         public ActionResult ViewTasks()
         {
-            List<Task> tasks;
-            using (TasksListContext context = new TasksListContext())
+            IEnumerable<Task> tasks;
+
+            try
             {
-                tasks = context.TasksList.ToList();
-                return PartialView("_TasksList", tasks);
+                tasks = GetTasks();
             }
-            
+            catch (Exception)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.InternalServerError);
+            }
+            return PartialView("_TasksList", tasks);
         }
+
         [Route]
         public ActionResult Index()
         {
-            using (TasksListContext context = new TasksListContext())
+            IEnumerable<Task> tasks;
+
+            try
             {
-                List<Task> tasks = context.TasksList.ToList<Task>();
-                return View(tasks);
+                tasks = GetTasks();
             }
+            catch (Exception)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.InternalServerError);
+            }
+            return View(tasks);
         }
     }
 }

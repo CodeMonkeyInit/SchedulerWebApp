@@ -235,7 +235,10 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
-    <Content Include="Scripts\scheduler-application.js" />
+    <Content Include="Scripts\SchedulerApplication\alert-handler.js" />
+    <Content Include="Scripts\SchedulerApplication\event-handlers.js" />
+    <Content Include="Scripts\SchedulerApplication\scheduler-application.js" />
+    <Content Include="Scripts\SchedulerApplication\TaskFormSubmitter.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -249,6 +252,7 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Application\Index.cshtml" />
     <Content Include="Views\Application\_TasksList.cshtml" />
+    <Content Include="Views\Application\_AddForm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
