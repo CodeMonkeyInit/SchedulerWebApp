@@ -1,15 +1,50 @@
-﻿function getAlert(type, message) {
-    if (type == "success") {
-        return "<div class=\"alert alert-success task-list-alert col-md-12\"> <a href=\"#\" class=\"close\" data-dismiss=\"alert\" aria-label=\"close\">&times;</a>" + message + "</div>";
-    }
-    else (type == "error")
+﻿const HIDE_ALERT_IN_MS = 200;
+
+var AlertType =
     {
-        return "<div class=\"alert alert-danger task-list-alert col-md-12\"> <a href=\"#\" class=\"close\" data-dismiss=\"alert\" aria-label=\"close\">&times;</a>" + message + "</div>";
+        error: 0,
+        success: 1
+    };
 
+function AlertHandler(displayTimeInMs)
+{
+    function hideAlert()
+    {
+        setTimeout(function () {
+            alert.hide(HIDE_ALERT_IN_MS);
+        }, displayTimeInMs);
+    }
+
+    this.printAlert = function (alertjQuerryObject, type, message)
+    {
+        alert.removeClass("alert-danger alert-success");
+        
+        alert.text(message);
+
+        if (type == AlertType.success)
+        {
+            alert.addClass("alert-success");
+        }
+        else if (type == AlertType.error)
+        {
+            alert.addClass("alert-danger");
+        }
+        alert.show();
+        hideAlert();
+    }
+
+    this.printFormAlert = function (alertType, message)
+    {
+        alert = $(".task-form-alert");
+        this.printAlert(alert, alertType, message);
+    }
+
+    this.printTaskListAlert = function (alertType, message)
+    {
+        alert = $(".task-list-alert");
+        this.printAlert(alert, alertType, message);
     }
 }
 
-function printAlert(type, message) {
-    $(".alerts-container").empty();
-    $(".alerts-container").append(getAlert(type, message));
-}
+
+

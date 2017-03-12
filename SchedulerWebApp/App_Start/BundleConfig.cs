@@ -21,11 +21,16 @@ namespace SchedulerWebApp
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js",
-                      "~/Scripts/bootstrap-editable.js",
+                      "~/Scripts/bootstrap-editable.js"
+                      ));
+
+            bundles.Add(new ScriptBundle("~/bundles/SchedulerApplication").Include(
+                      "~/Scripts/SchedulerApplication/application-constants.js",
                       "~/Scripts/SchedulerApplication/alert-handler.js",
                       "~/Scripts/SchedulerApplication/event-handlers.js",
-                      "~/Scripts/SchedulerApplication/TaskFormSubmitter.js",
-                      "~/Scripts/SchedulerApplication/scheduler-application.js"));
+                      "~/Scripts/SchedulerApplication/task-form-submitter.js",
+                      "~/Scripts/SchedulerApplication/scheduler-application.js"
+                ));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",

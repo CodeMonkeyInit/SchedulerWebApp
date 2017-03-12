@@ -11,26 +11,33 @@ function onTaskUpdate(response, newValue)
 
     if (newValue != "")
     {
-        $.ajax({
-            url: "update",
-            method: "POST",
-            data: {
-                id: id,
-                updatedDescription: newValue
-            },
-            success: function (response, status) {
-                printAlert("success", "Успешно отредактированно!");
-            },
-            error: function (response, status, errorCode) {
-                $(".task-list-alert").remove();
-                $(".alerts-container").append(getAlert("error", "Возникла внутренняя ошибка!"));
-                updateTaskList();
-            }
-        });
+        if (newValue.length <= DESCRIPTION_MAX_LENGTH)
+        {
+            $.ajax({
+                url: "update",
+                method: "POST",
+                data: {
+                    id: id,
+                    updatedDescription: newValue
+                },
+                success: function (response, status) {
+                    alertHandler.printTaskListAlert(AlertType.success, "Успешно отредактированно!");
+                },
+                error: function (response, status, errorCode) {
+                    alertHandler.printTaskListAlert(AlertType.error, "Возникла внутренняя ошибка!");
+                    updateTaskList();
+                }
+            });
+        }
+        else
+        {
+            alertHandler.printTaskListAlert(AlertType.error, "Новое описание более " + DESCRIPTION_MAX_LENGTH + " символов");
+            updateTaskList();
+        }
     }
     else
     {
-        printAlert("error", "Поле не может быть пустым оно будет удалено!");
+        alertHandler.printTaskListAlert(AlertType.error, "Поле не может быть пустым оно будет удалено!");
         removeTask(id);
     }
 }

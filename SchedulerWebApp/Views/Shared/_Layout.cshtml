@@ -14,12 +14,13 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year – приложение ASP.NET</p>
+            <p>&copy; @DateTime.Now.Year – SchedulerApp</p>
         </footer>
     </div>
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/SchedulerApplication");
     @RenderSection("scripts", required: false)
 </body>
 </html>

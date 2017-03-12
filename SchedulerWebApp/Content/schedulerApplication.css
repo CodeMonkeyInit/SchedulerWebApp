@@ -1,5 +1,13 @@
 ﻿@import url('https://fonts.googleapis.com/css?family=Roboto+Condensed');
 
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Roboto Condensed', sans-serif;
+}
+
+p, div {
+    font-family: 'Roboto Condensed', sans-serif;
+}
+
 body {
     padding-top: 50px;
     padding-bottom: 20px;
@@ -40,6 +48,10 @@ textarea {
     word-break: break-word;
 }
 
+.form-alerts-container {
+    max-width: 280px;
+}
+
 .alerts-container {
     height: 100px;
     content: " ";
@@ -49,4 +61,8 @@ textarea {
     font-size: 20px;
     font-weight: bolder;
     text-align: center;
+}
+
+.hide-alert {
+    display: none;
 }

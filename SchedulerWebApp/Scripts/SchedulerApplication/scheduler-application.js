@@ -1,4 +1,6 @@
-﻿function initializeEditableParameters()
+﻿var alertHandler = new AlertHandler(ALERTS_DELAY_IN_MS);
+
+function initializeEditableParameters()
 {
     $.fn.editable.defaults.mode = 'inline';
     $(".task-text").editable({
@@ -27,7 +29,7 @@ function updateTaskList()
         },
         error: function(response, status, errorCode)
         {
-            printAlert("error", "Возникла ошибка при обновлении(" + errorCode + ")");
+            alertHandler.printTaskListAlert(AlertType.error, "Возникла ошибка при обновлении(" + errorCode + ")");
         }
     })
 }
@@ -41,11 +43,11 @@ function removeTask(id)
             id: id
         },
         success: function (response, status) {
-            printAlert("success", "Успешно удалено!");
+            alertHandler.printTaskListAlert(AlertType.success, "Успешно удалено!");
             updateTaskList();
         },
         error: function (response, status, errorCode) {
-            printAlert("error", "Возникла ошибка при удалении!(" + errorCode + ")");
+            alertHandler.printTaskListAlert(AlertType.error, "Возникла ошибка при удалении!(" + errorCode + ")");
         }
     });
 }
